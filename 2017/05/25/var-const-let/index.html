@@ -1,0 +1,823 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-hk">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/myBlog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/myBlog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/myBlog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="javascript,变量定义" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/myBlog/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="let和const都是es5，es6新版本的js语言规范出来的定义，在这以前定义一个变量只能用var。let和const都是为了弥补var的一些缺陷而新设计出来的。">
+<meta name="keywords" content="javascript,变量定义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="const-var-let">
+<meta property="og:url" content="https://github.com/bingino/myBlog/2017/05/25/var-const-let/index.html">
+<meta property="og:site_name" content="binginto blog">
+<meta property="og:description" content="let和const都是es5，es6新版本的js语言规范出来的定义，在这以前定义一个变量只能用var。let和const都是为了弥补var的一些缺陷而新设计出来的。">
+<meta property="og:image" content="http://xyzphoto.qiniudn.com/WpBingWallpaper-2014-04-10.jpg?imageView/1/w/670/h/400">
+<meta property="og:updated_time" content="2017-05-23T14:36:11.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="const-var-let">
+<meta name="twitter:description" content="let和const都是es5，es6新版本的js语言规范出来的定义，在这以前定义一个变量只能用var。let和const都是为了弥补var的一些缺陷而新设计出来的。">
+<meta name="twitter:image" content="http://xyzphoto.qiniudn.com/WpBingWallpaper-2014-04-10.jpg?imageView/1/w/670/h/400">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/myBlog/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/bingino/myBlog/2017/05/25/var-const-let/"/>
+
+
+
+
+
+  <title>const-var-let | binginto blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-hk">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/myBlog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">binginto blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/myBlog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首頁
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/myBlog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分類
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/myBlog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            關於
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/myBlog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            歸檔
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/myBlog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            標籤
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://github.com/bingino/myBlog/myBlog/2017/05/25/var-const-let/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="binginto">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/myBlog/images/L的头像.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="binginto blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">const-var-let</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">發表於</span>
+              
+              <time title="創建於" itemprop="dateCreated datePublished" datetime="2017-05-25T22:23:00+08:00">
+                2017-05-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分類於</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/myBlog/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/myBlog/categories/javascript/语法/" itemprop="url" rel="index">
+                    <span itemprop="name">语法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/myBlog/categories/javascript/语法/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  let和const都是es5，es6新版本的js语言规范出来的定义，在这以前定义一个变量只能用var。let和const都是为了弥补var的一些缺陷而新设计出来的。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="let语法"><a href="#let语法" class="headerlink" title="let语法"></a>let语法</h1><p>let 语句声明一个块级作用域的本地变量，并且可选的将其初始化为一个值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> var1 [= value1] [, var2 [= value2]] [, ..., varN [= valueN]];</div></pre></td></tr></table></figure></p>
+<p>##作用域规则</p>
+<p>let声明的变量只在其声明的块或子块中可用，这一点，与var相似。二者之间最主要的区别在于var声明的变量的作用域是整个封闭函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">varTest</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> x = <span class="number">1</span>;</div><div class="line">  <span class="keyword">if</span> (<span class="literal">true</span>) &#123;</div><div class="line">    <span class="keyword">var</span> x = <span class="number">2</span>;  <span class="comment">// 同样的变量!</span></div><div class="line">    <span class="built_in">console</span>.log(x);  <span class="comment">// 2</span></div><div class="line">  &#125;</div><div class="line">  <span class="built_in">console</span>.log(x);  <span class="comment">// 2</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">letTest</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> x = <span class="number">1</span>;</div><div class="line">  <span class="keyword">if</span> (<span class="literal">true</span>) &#123;</div><div class="line">    <span class="keyword">let</span> x = <span class="number">2</span>;  <span class="comment">// 不同的变量</span></div><div class="line">    <span class="built_in">console</span>.log(x);  <span class="comment">// 2</span></div><div class="line">  &#125;</div><div class="line">  <span class="built_in">console</span>.log(x);  <span class="comment">// 1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>##简化内部函数代码</p>
+<p>当用到内部函数的时候，let会让你的代码更加简单。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var list = document.getElementById(&quot;list&quot;);</div><div class="line"></div><div class="line">for (let i = 1; i &lt;= 5; i++) &#123;</div><div class="line">  var item = document.createElement(&quot;LI&quot;);</div><div class="line">  item.appendChild(document.createTextNode(&quot;Item &quot; + i));</div><div class="line"></div><div class="line">  let j = i;</div><div class="line">  item.onclick = function (ev) &#123;</div><div class="line">    console.log(&quot;Item &quot; + j + &quot; is clicked.&quot;);</div><div class="line">  &#125;;</div><div class="line">  list.appendChild(item);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h1 id="const语法"><a href="#const语法" class="headerlink" title="const语法"></a>const语法</h1><p>常量是块级作用域， 很像使用 let 语句定义的变量。常量的值不能通过重新赋值来改变，并且不能重新声明。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> name1 = value1 [, name2 = value2 [, ... [, nameN = valueN]]];</div></pre></td></tr></table></figure></p>
+<p>##example<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 注意: 常量在声明的时候可以使用大小写，但通常情况下会使用全部大写英文。 </span></div><div class="line"></div><div class="line"><span class="comment">// 定义常量MY_FAV并赋值7</span></div><div class="line"><span class="keyword">const</span> MY_FAV = <span class="number">7</span>;</div><div class="line"></div><div class="line"><span class="comment">// 报错</span></div><div class="line">MY_FAV = <span class="number">20</span>;</div><div class="line"></div><div class="line"><span class="comment">// 输出 7</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">"my favorite number is: "</span> + MY_FAV);</div><div class="line"></div><div class="line"><span class="comment">// 尝试重新声明会报错 </span></div><div class="line"><span class="keyword">const</span> MY_FAV = <span class="number">20</span>;</div><div class="line"></div><div class="line"><span class="comment">//  MY_FAV 保留给上面的常量，这个操作会失败</span></div><div class="line"><span class="keyword">var</span> MY_FAV = <span class="number">20</span>; </div><div class="line"></div><div class="line"><span class="comment">// 也会报错</span></div><div class="line"><span class="keyword">let</span> MY_FAV = <span class="number">20</span>;</div><div class="line"></div><div class="line"><span class="comment">// 注意块范围的性质很重要</span></div><div class="line"><span class="keyword">if</span> (MY_FAV === <span class="number">7</span>) &#123; </div><div class="line">    <span class="comment">// 没问题，并且创建了一个块作用域变量 MY_FAV</span></div><div class="line">    <span class="comment">// (works equally well with let to declare a block scoped non const variable)</span></div><div class="line">    <span class="keyword">let</span> MY_FAV = <span class="number">20</span>;</div><div class="line"></div><div class="line">    <span class="comment">// MY_FAV 现在为 20</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'my favorite number is '</span> + MY_FAV);</div><div class="line"></div><div class="line">    <span class="comment">// 这被提升到全局上下文并引发错误</span></div><div class="line">    <span class="keyword">var</span> MY_FAV = <span class="number">20</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// MY_FAV 依旧为7</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">"my favorite number is "</span> + MY_FAV);</div><div class="line"></div><div class="line"><span class="comment">// 常量要求一个初始值</span></div><div class="line"><span class="keyword">const</span> FOO; <span class="comment">// SyntaxError: missing = in const declaration</span></div><div class="line"></div><div class="line"><span class="comment">// 常量可以定义成对象</span></div><div class="line"><span class="keyword">const</span> MY_OBJECT = &#123;<span class="string">"key"</span>: <span class="string">"value"</span>&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 重写对象和上面一样会失败</span></div><div class="line">MY_OBJECT = &#123;<span class="string">"OTHER_KEY"</span>: <span class="string">"value"</span>&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 对象属性并不在保护的范围内，下面这个声明会成功执行</span></div><div class="line">MY_OBJECT.key = <span class="string">"otherValue"</span>;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 也可以用来定义数组</span></div><div class="line"><span class="keyword">const</span> MY_ARRAY = [];</div><div class="line"><span class="comment">// It's possible to push items into the array</span></div><div class="line"><span class="comment">// 可以向数组填充数据</span></div><div class="line">MY_ARRAY.push(<span class="string">'A'</span>); <span class="comment">// ["A"]</span></div><div class="line"><span class="comment">// 但是，将一个新数组赋给变量会引发错误</span></div><div class="line">MY_ARRAY = [<span class="string">'B'</span>]</div></pre></td></tr></table></figure></p>
+<h1 id="var语法"><a href="#var语法" class="headerlink" title="var语法"></a>var语法</h1><p>变量语句声明了一个变量，可选地将其初始化为一个值。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> varname1 [= value1 [, varname2 [, varname3 ... [, varnameN]]]];</div></pre></td></tr></table></figure></p>
+<p>##example<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;=<span class="number">1000</span>;i++)&#123; </div><div class="line"><span class="keyword">var</span> sum=<span class="number">0</span>; </div><div class="line">sum+=i; </div><div class="line">&#125; </div><div class="line">alert(sum);</div></pre></td></tr></table></figure></p>
+<h1 id="简单总结"><a href="#简单总结" class="headerlink" title="简单总结"></a>简单总结</h1><blockquote>
+<ul>
+<li>使用var声明的变量，其作用域为该语句所在的函数内，且存在变量提升现象；</li>
+<li>使用let声明的变量，其作用域为该语句所在的代码块内，不存在变量提升；</li>
+<li>使用const声明的是常量，在后面出现的代码中不能再修改该常量的值。</li>
+</ul>
+</blockquote>
+<p> 详细说明可以参考 <a href="http://www.infoq.com/cn/articles/es6-in-depth-let-and-const" target="_blank" rel="external">深入浅出ES6(十四)let和const</a> </p>
+<p>  <img src="http://xyzphoto.qiniudn.com/WpBingWallpaper-2014-04-10.jpg?imageView/1/w/670/h/400" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/myBlog/tags/前端/" rel="tag"># 前端</a>
+          
+            <a href="/myBlog/tags/javascrit，语法/" rel="tag"># javascrit，语法</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/myBlog/2017/05/25/2/" rel="next" title="一个合格的程序员应该读过哪些书">
+                <i class="fa fa-chevron-left"></i> 一个合格的程序员应该读过哪些书
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目錄
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概覽
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/myBlog/images/L的头像.jpg"
+               alt="binginto" />
+          <p class="site-author-name" itemprop="name">binginto</p>
+           
+              <p class="site-description motion-element" itemprop="description">Hello World</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/myBlog/archives">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/myBlog/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分類</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/myBlog/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">標籤</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/your-user-name" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://douban.com/people/your-user-name" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/your-user-name" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#let语法"><span class="nav-number">1.</span> <span class="nav-text">let语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#const语法"><span class="nav-number">2.</span> <span class="nav-text">const语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#var语法"><span class="nav-number">3.</span> <span class="nav-text">var语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#简单总结"><span class="nav-number">4.</span> <span class="nav-text">简单总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">binginto</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 強力驅動
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/myBlog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/myBlog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/myBlog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/myBlog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/myBlog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/myBlog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/myBlog/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/myBlog/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/myBlog/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/myBlog/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/myBlog/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
